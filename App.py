@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import img_to_array
 
 
 def load_model():
-    model_path = 'saved_model/saved_model.pb'  # Provide the path to your SavedModel directory
+    model_path = 'saved_model.pb'  # Provide the path to your SavedModel directory
     model = keras.models.load_model(model_path)
     return model
 
