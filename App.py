@@ -1,12 +1,13 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
+from PIL import Image
 from tensorflow import keras
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import img_to_array
 
 def load_model():
-    model = keras.models.load_model('my_model')
+    model = keras.models.load_model('saved_model/my_model')
     return model
 
 def preprocess_image(image_path):
