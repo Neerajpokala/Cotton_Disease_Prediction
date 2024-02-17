@@ -6,12 +6,9 @@ from tensorflow import keras
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import img_to_array
 
-def load_model():
-    model = keras.models.load_model('saved_model/saved_model.pb')
-    return model
 
 def load_model():
-    model_path = 'saved_model/my_model'  # Provide the path to your SavedModel directory
+    model_path = 'saved_model/saved_model.pb'  # Provide the path to your SavedModel directory
     model = keras.models.load_model(model_path)
     return model
 
