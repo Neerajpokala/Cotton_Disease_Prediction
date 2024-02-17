@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import img_to_array
 
 def load_model():
-    model = keras.models.load_model('my_model')
+    model = keras.models.load_model('saved_model/saved_model.pb')
     return model
 
 def preprocess_image(image_path):
