@@ -1,15 +1,13 @@
 import streamlit as st
-import tensorflow as tf
 import numpy as np
 from PIL import Image
-from tensorflow import keras
+import pickle
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import img_to_array
 
-
-def load_model():
-    model_path = 'saved_model.pb'  # Provide the path to your SavedModel directory
-    model = keras.models.load_model(model_path)
+def load_model(model_path):
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
     return model
 
 def preprocess_image(image_path):
@@ -46,7 +44,8 @@ def main():
             st.image(image, caption='Uploaded Image', use_column_width=True)
 
             # Make prediction
-            model = load_model()
+            model_path = 'model.pkl'  # Provide the path to your pickle file
+            model = load_model(model_path)
             img_array = preprocess_image(uploaded_file)
             prediction = predict_image_class(model, img_array)
             st.success(f"Prediction: {prediction}")
