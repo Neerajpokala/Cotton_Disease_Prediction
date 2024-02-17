@@ -10,6 +10,11 @@ def load_model():
     model = keras.models.load_model('saved_model/saved_model.pb')
     return model
 
+def load_model():
+    model_path = 'saved_model/my_model'  # Provide the path to your SavedModel directory
+    model = keras.models.load_model(model_path)
+    return model
+
 def preprocess_image(image_path):
     img = image.load_img(image_path, target_size=(224, 224))
     img_array = img_to_array(img)
