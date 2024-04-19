@@ -44,7 +44,7 @@ def main():
             st.image(image, caption='Uploaded Image', use_column_width=True)
 
             # Make prediction
-            model_path = 'model.pkl'  # Provide the path to your pickle file
+            model_path = 'saved_model.pb'  # Provide the path to your pickle file
             model = load_model(model_path)
             img_array = preprocess_image(uploaded_file)
             prediction = predict_image_class(model, img_array)
