@@ -1,31 +1,27 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import pickle
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.preprocessing.image import img_to_array
+import tensorflow as tf
 
 def load_model(model_path):
-    with open(model_path, 'rb') as f:
-        model = pickle.load(f)
+    model = tf.saved_model.load(model_path)
     return model
 
 def preprocess_image(image_path):
-    img = image.load_img(image_path, target_size=(224, 224))
-    img_array = img_to_array(img)
+    img = Image.open(image_path)
+    img = img.resize((224, 224))
+    img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
-    img_array /= 255.0
     return img_array
 
 def predict_image_class(model, img_array):
-    preds = model.predict(img_array)
+    preds = model(img_array)
     preds = np.argmax(preds, axis=1)
     class_labels = ['diseased cotton leaf', 'diseased cotton plant', 'fresh cotton leaf', 'fresh cotton plant']
     return class_labels[preds[0]]
 
 def main():
     st.title('Cotton Disease Detection')
-
     page = st.sidebar.selectbox("Choose a page", ["CNN Explanation", "Image Inference"])
 
     if page == "CNN Explanation":
@@ -44,7 +40,7 @@ def main():
             st.image(image, caption='Uploaded Image', use_column_width=True)
 
             # Make prediction
-            model_path = 'saved_model.pb'  # Provide the path to your pickle file
+            model_path = 'path/to/saved_model.pb'  # Update this with the correct path
             model = load_model(model_path)
             img_array = preprocess_image(uploaded_file)
             prediction = predict_image_class(model, img_array)
